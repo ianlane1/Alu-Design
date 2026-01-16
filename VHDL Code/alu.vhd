@@ -193,7 +193,7 @@ architecture structural of alu is
       dff_i: dff port map(adder_out(i), clk, adder_dff_out(i));
 
       -- reset mux to reset the output flip flops to 0. Needed mainly for multiplication
-      mux_reset_i: mux2to1 port map(multiply_sig, reset_inv, adder_dff_out(i), reset_mux_out(i));
+      mux_reset_i: mux2to1 port map(start, reset, adder_dff_out(i), reset_mux_out(i));
 
       -- Second posative edge dff
       dff_p_i: dff_p port map(reset_mux_out(i), clk, adder_dff_p_out(i));
@@ -209,8 +209,8 @@ architecture structural of alu is
 
     tristate_cout: tristate port map(adder_cout, OE, cout);
 
-    add_a <= aff_out;
-    add_b <= b_xor;
+    add_a <= adder_a_in;
+    add_b <= adder_b_in;
 
 end structural;
 
